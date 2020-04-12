@@ -1,6 +1,6 @@
 --[[
     Author: evaera
-	Purpose: An implementation of Promises similar to Promise/A+.
+    Purpose: An implementation of Promises similar to Promise/A+.
 ]]
 
 local ERROR_YIELD_NEW = "Yielding inside Promise.new is not allowed! Use Promise.async or create a new thread in the Promise executor!"
