@@ -1,50 +1,67 @@
-local Data = {
-	Template = {
+--[[
+	Author: Alphexus
+	Purpose: Data class to save/load data with simple data prevention
+--]] 
 
-  }
-}
+local Data = {}
+Data.__index = Data
 
-
--- // Services \\ --
 local DataStoreService = game:GetService("DataStoreService")
-local DataStore = DataStoreService:GetDataStore("Data#FD10dn23a")
-local Backup = DataStoreService:GetDataStore("BackupSave")
+local DataTemplate = require(script.DataTemplate)
 
-function Data:Set(key, value)
-	local success, err = pcall(function()
+-- // Private \\ --
+local function Deepcopy(tbl)
+    local ret = {}
+
+    for k, v in pairs(tbl) do
+        ret[k] = type(v) == "table" and Deepcopy(v) or v
+    end
+
+    return ret
+end
+
+-- // Public \\ --
+function Data.new(name, template)
+	local self = setmetatable({}, Data)
+	self.DataStore = DataStoreService:GetDataStore(name)
+	self.Template = template or require(script.DataTemplate)
+
+	return self
+end
+
+function Data:Set(key, value, trial)
+	if trial == 4 then return end
+	local DataStore = self.DataStore
+	
+	local Success, ErrorMessage = pcall(function()
 		DataStore:SetAsync(key, value)
 	end)
 	
-	if not success then
-		wait(1)
-		return Data:Set(key, value)
+	if not Success then
+		warn(ErrorMessage)
+		wait(6)
+		return self:Set(key, value, trial + 1)
 	end
 end
 
-function Data:Get(key)
-	local PlayerData
-	local success, err = pcall(function()
-		PlayerData = DataStore:GetAsync(key)
+function Data:Get(key, trial) 
+	if trial == 4 then return nil end
+	local DataStore = self.DataStore
+	
+	local Success, pData = pcall(function()
+		return DataStore:GetAsync(key)
 	end)
 	
-	if success then
-		if PlayerData then
-			return PlayerData
+	if Success then
+		if pData ~= nil then
+			return pData
 		else
-			success, err = pcall(function()
-				PlayerData = Backup:GetAsync(key)
-			end)
-			
-			if success then
-				if PlayerData then
-					return PlayerData
-				else
-					return nil
-				end
-			end
+			self:Set(key, self.Template, 1)
+			return Deepcopy(self.Template)
 		end
 	else
-		return nil
+		wait(6)
+		return self:Get(key, trial + 1)
 	end
 end
 
