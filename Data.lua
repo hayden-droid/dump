@@ -1,6 +1,6 @@
 --[[
 	Author: Alphexus
-	Purpose: Data class to save/load data with simple data prevention
+	Purpose: Data class to recursively save/load data with simple data loss prevention
 --]] 
 
 local Data = {}
