@@ -1,7 +1,7 @@
 --[[
     Author: evaera
     Purpose: An implementation of Promises similar to Promise/A+.
-]]
+--]]
 
 local ERROR_YIELD_NEW = "Yielding inside Promise.new is not allowed! Use Promise.async or create a new thread in the Promise executor!"
 local ERROR_YIELD_THEN = "Yielding inside andThen/catch is not allowed! Instead, return a new Promise from andThen/catch."
