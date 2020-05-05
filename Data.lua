@@ -7,7 +7,6 @@ local Data = {}
 Data.__index = Data
 
 local DataStoreService = game:GetService("DataStoreService")
-local DataTemplate = require(script.DataTemplate)
 
 -- // Private \\ --
 local function Deepcopy(tbl)
@@ -54,6 +53,11 @@ function Data:Get(key, trial)
 	
 	if Success then
 		if pData ~= nil then
+			for key,value in pairs(self.Template) do
+				if not pData[key] then
+					pData[key] = value
+				end
+			end
 			return pData
 		else
 			self:Set(key, self.Template, 1)
@@ -66,3 +70,4 @@ function Data:Get(key, trial)
 end
 
 return Data
+
