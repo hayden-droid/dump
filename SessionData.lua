@@ -13,11 +13,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local SessionRemote = ReplicatedStorage:WaitForChild("SessionData")
 
 function SessionData:Add(player, data)
-	SessionData.Players[player.Name] = data
+	SessionData.Players[player.UserId] = data
 end
 
 function SessionData:Remove(player)
-	SessionData.Players[player.Name] = nil
+	SessionData.Players[player.UserId] = nil
 end
 
 function SessionData:CreateHybrid(player, instName, value, name)	
@@ -36,8 +36,8 @@ function SessionData:CreateHybrid(player, instName, value, name)
 end
 
 function SessionData:Get(player)
-	repeat wait(0.05) until SessionData.Players[player.Name] ~= nil
-	return SessionData.Players[player.Name]
+	repeat wait(0.05) until SessionData.Players[player.UserId] ~= nil
+	return SessionData.Players[player.UserId]
 end
 
 function SessionData:Update(player, newData)
