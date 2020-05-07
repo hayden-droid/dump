@@ -25,8 +25,6 @@ function SessionData:CreateHybrid(player, instName, value, name)
 		local HybridData = Instance.new("Folder")
 		HybridData.Name = "HybridData"
 		HybridData.Parent = player
-		
-		return self:CreateHybrid(player, instName, value, name)
 	end
 	
 	local Hybrid = Instance.new(instName)
