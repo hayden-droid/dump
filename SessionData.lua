@@ -40,7 +40,7 @@ function SessionData:Get(player)
 	return SessionData.Players[player.UserId]
 end
 
-function SessionData:Update(player, newData)
+function SessionData:SyncToClient(player, newData)
 	SessionRemote:FireClient(player, newData)
 end
 
