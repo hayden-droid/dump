@@ -1,6 +1,6 @@
 --[[
 	Author: einsteinK, Alphexus
-	Purpose: A way of adding a timeout to Event:Wait(). You can also pass a callback function,
+	Purpose: A way of adding a timeout to Event:Wait(). You can also pass a callback function.
 --]] 
 
 local EventTimeout = {}
