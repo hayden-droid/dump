@@ -12,7 +12,7 @@ function EventTimeout.new(ev, t, callback)
 		con:Disconnect()
 	end)
 	
-    t = tick() + (t or 30)
+   	t = tick() + (t or 30)
 	repeat wait() until res or tick() > t
 	
 	if not res then 
