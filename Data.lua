@@ -60,6 +60,7 @@ function Data:Get(key, trial)
 			end
 			return pData
 		else
+			wait(6)
 			self:Set(key, self.Template, 1)
 			return Deepcopy(self.Template)
 		end
