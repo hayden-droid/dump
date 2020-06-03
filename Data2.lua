@@ -74,10 +74,10 @@ function Data:Get(datastore, key, trial)
 			
 			return pData
 		else
-			if datastore == self.BackupDataStore then
+			if datastore == self.DataStore then
 				coroutine.wrap(function()
 					wait(5)
-					self:Set(key, self.Template, 1)
+					self:Set(datastore, key, self.Template, 1)
 				end)()
 				return Deepcopy(self.Template)
 			else
