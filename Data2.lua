@@ -45,7 +45,7 @@ function Data:Set(datastore, key, value, trial)
 			self:Set(datastore, key, value, trial + 1)
 		end)()
 	else
-		if datastore == self.DataStoer then
+		if datastore == self.DataStore then
 			self:Set(self.BackupDataStore, key, value, 1)
 		end
 	end
